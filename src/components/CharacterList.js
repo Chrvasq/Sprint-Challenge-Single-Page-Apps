@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import SearchForm from "./SearchForm";
 import CharacterCard from "./CharacterCard";
 import Axios from "axios";
 
@@ -10,14 +8,16 @@ const Container = styled.section`
   flex-wrap: wrap;
   justify-content: space-between;
 `;
-const Nav = styled.nav`
-  margin-top: 20px;
-`;
 
-export default function CharacterList() {
+export default function CharacterList(props) {
   const [characters, setCharacters] = useState([]);
 
-  useEffect(() => {
+  const filterList = name => {
+    const newList = characters.filter(character => character.name === name);
+    setCharacters(newList);
+  };
+
+  const getData = () => {
     Axios.get("https://rickandmortyapi.com/api/character/")
       .then(res => {
         setCharacters(res.data.results);
@@ -25,9 +25,15 @@ export default function CharacterList() {
       .catch(err => {
         console.log("Error", err);
       });
+  };
+
+  useEffect(() => {
+    getData();
   }, []);
 
-  console.log("Data", characters);
+  useEffect(() => {
+    filterList(props.nameToSearch);
+  }, [props.nameToSearch]);
 
   return (
     <Container>
