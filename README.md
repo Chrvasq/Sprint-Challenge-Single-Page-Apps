@@ -27,7 +27,7 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ]  Explain benefit(s) using `client-side routing`?
 
-> Answer:
+> Answer: A benefit of using client-side routing is the ability to have data update without refreshing the page. This is done through using state within the app. This provides the user with a great experience since it also has lower load times compared to server-side routing.
 
 ## Project Set Up
 
